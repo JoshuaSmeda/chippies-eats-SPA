@@ -5,7 +5,6 @@ http://www.eatout.co.za/venue/chippies-prego-rondebosch/
 
 ![yummy!](img/Prego-Steak-Roll-Chippies-featured-image.jpg)
 
-Prego-Steak-Roll-Chippies-featured-image.jpg
 # chippies_ordering_system
 Takes the hard work out of chippies orders!
 
