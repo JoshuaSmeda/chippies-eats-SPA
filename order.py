@@ -1,7 +1,6 @@
 import re
 from collections import Counter
 from datetime import datetime, timedelta, time, date
-import dateutil.parser
 import logging
 import logging.handlers
 import os
@@ -23,7 +22,7 @@ d = {}
 def dict_creator(staff_name, str_order):
   d[staff_name] = str_order
   print ""
-  print("CURRENT ORDER LIST")
+  print("CURRENT ORDER LIST:")
   for key, value in d.items():
     print(key + " " + value)
 
@@ -72,7 +71,7 @@ try:
     if confirmation == "Y":
       os.remove("order-" + current_dt)
 except Exception, e:
-  print(e)
+  pass # Hiding this
 
 def details():
   while running == True:
@@ -173,7 +172,7 @@ def order_some_more():
       confirm()
     elif order_more == "X":
       print ("")
-      print ("ORDER COMPLETED - printed to " + file_name + " ")
+      print ("ORDER COMPLETED - PRINTING BELOW:")
       for key, value in d.items():
         order_list = ("Person: " + key + " Order: " + value)
         print(order_list)
@@ -186,6 +185,6 @@ def order_some_more():
       order_some_more()
 
 order_some_more()
-print("Calculating Order Totals")
+print("\n" + "CALCULATING ORDER TOTALS:")
 log_order("")
 order_total_counting()
