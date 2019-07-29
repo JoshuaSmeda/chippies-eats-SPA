@@ -173,8 +173,7 @@ def order_some_more():
       confirm()
     elif order_more == "X":
       print ("")
-      print ("ORDER COMPLETED - printed to " + "replace!!")
-      print("")
+      print ("ORDER COMPLETED - printed to " + file_name + " ")
       for key, value in d.items():
         order_list = ("Person: " + key + " Order: " + value)
         print(order_list)
@@ -190,4 +189,3 @@ order_some_more()
 print("Calculating Order Totals")
 log_order("")
 order_total_counting()
-log_order("Total Number of Dict Elements" + " " + str(len(c)))
