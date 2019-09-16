@@ -1,0 +1,13 @@
+Flask application with a sqlite backend for persistance across application reboots
+
+Build a mobile application similar to this: https://getbootstrap.com/docs/4.3/examples/sign-in/
+
+Needs to be only accessible via certain source IPs since making a login page is out of the scope.
+
+Needs to post to Slack when submissions are available -- in #general chat
+
+Mobile app needs to ask for the users name and their order (from a drop down menu)
+
+Needs to use jquery to advise the user if the order was placed successfully, or not and the reason as to why it failed.
+
+
