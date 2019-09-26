@@ -11,3 +11,12 @@ Mobile app needs to ask for the users name and their order (from a drop down men
 Needs to use jquery to advise the user if the order was placed successfully, or not and the reason as to why it failed.
 
 
+===
+
+The above has been completed successfully. Need to improve on the following:
+
+
+Need to implement a class to handle DB queries without repeating code.
+Need to build automation testing
+Need to deploy a wsgi application (gunicorn as a example).
+Need to implement additional CF firewall rules and only allow access from office breakout.
