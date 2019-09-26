@@ -20,3 +20,6 @@ Need to implement a class to handle DB queries without repeating code.
 Need to build automation testing
 Need to deploy a wsgi application (gunicorn as a example).
 Need to implement additional CF firewall rules and only allow access from office breakout.
+Need to perform additional data validation that takes place on the website. Users are able to insert garbage data instead of using only the available fields within the DB table. Therefore, we need to do a additional check before the AJAX post takes place.
+Need a cleaner solution to flushing the table - ideally we should record the dates that these orders take place and based on the fact that we do not order Chippies multiple times a day - the web application would know if they ordered today or not.
+Should probably use some form of CRSF tokens on the forms to ensure data supplied is valid.
