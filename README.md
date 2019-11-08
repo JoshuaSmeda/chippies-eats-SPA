@@ -10,6 +10,10 @@ http://www.eatout.co.za/venue/chippies-prego-rondebosch/
 
 Takes the hard work out of chippies orders using this simple web based SPA.
 
+# Notes
+
+This code base is in dire need of refactoring. I just pumped this out and didn't actually write pythonically :(
+
 # Example Nginx configuration to server SPA 
 
 ```
