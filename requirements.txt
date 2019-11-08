@@ -1,0 +1,2 @@
+flask
+waitress=1.3.1

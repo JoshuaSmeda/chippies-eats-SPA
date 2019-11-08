@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Chippies Order Submission Application">
+    <meta name="author" content="Joshua Smeda">
+    <link rel="icon" href="https://img.icons8.com/nolan/64/000000/puzzle.png">
+
+    <title>Chippies Order Submission</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/4.0/examples/floating-labels/floating-labels.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/form.js') }}"></script>
+
+  <div class="fixed-top">
+    <a href="admin_panel" class="btn btn-outline-dark" role="button">Admin Panel</a>
+  </div>
+  </head>
+  
+  <body>
+    <form class="form-signin">
+      <div class="text-center mb-4">
+        <img class="mb-4" src="/static/mrd_logo.svg" alt="" width="82" height="82">
+        <h1 class="h3 mb-3 font-weight-normal">ChippiesEats?</h1>
+        <p><code>Hooray! It's that day again... Chippies day. Select your name, order and submit before submissions close. I'll automatically forward your order to the man in charge - don't worry :-)</code></p>
+      </div>
+
+      <div class="form-label-group">
+        <select id="user" class="form-control" required>
+          <option value="" disabled selected>Who are you?</option>
+            {% for j in user_rows %}
+            <option id={{ j["name"] }} value="{{j}}">{{ j["name"] }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <select id="menu" class="form-control" required>
+          <option value="" disabled selected>Pick your meal</option>
+            {% for k in menu_rows %}
+            <option id={{k ["name"] }} value="{{k ["name"] }}">{{ k["name"] }}</option>
+            {% endfor %}
+        </select>
+          <br>
+          <div id="successAlert" class="alert alert-success text-center" role="alert" style="display:none;"></div>
+          <div id="errorAlert" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
+        <br>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Ring it up!</button>
+      </div>
+
+      <p class="mt-5 mb-3 text-muted text-center">&copy; 2019 - Made by Joshua Smeda</p>
+
+    </form>
+  </body>
+</html>
+
