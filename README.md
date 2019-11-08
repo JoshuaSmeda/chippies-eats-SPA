@@ -1,4 +1,4 @@
-[CLI version](https://github.com/JoshuaSmeda/chippies_ordering_system/tree/master)
+[CLI version](https://github.com/JoshuaSmeda/chippies_ordering_system/tree/master) <br>
 [Web based SPA](https://github.com/JoshuaSmeda/chippies_ordering_system/tree/web_app)
 
 # chippies_ordering_system
