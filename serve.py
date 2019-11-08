@@ -176,7 +176,7 @@ def process():
           print("error " + str(e))
           msg = "Unable to add user's order to DB"
 
-@app.route("/addmenuitem",methods = ["POST","GET"])
+@app.route("/addmenuitem",methods = ["POST", "GET"])
 def AddMenuItem():
     msg = "msg"
     if request.method == "POST":
@@ -220,7 +220,5 @@ def Submit_Details():
     return render_template("success.html", msg = msg)
 
 if __name__ == "__main__":
-#   app.run(debug=True) ## Replaced by Waitress
+#   app.run(debug=True) # Replaced by Waitress - "Production WS"
      serve(app, host='127.0.0.1', port=5000)
-
-#
