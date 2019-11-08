@@ -1,4 +1,5 @@
 # chippies_ordering_system
+
 We South Africans love chippies! Take the hard work out of ordering in bulk today!
 
 http://www.eatout.co.za/venue/chippies-prego-rondebosch/
@@ -6,15 +7,30 @@ http://www.eatout.co.za/venue/chippies-prego-rondebosch/
 ![yummy!](img/Prego-Steak-Roll-Chippies-featured-image.jpg)
 
 # chippies_ordering_system
-Takes the hard work out of chippies orders!
 
-Provides a pretty text based interface to order the main meals available from Chippies. <br>
-Confirms each order before checkout. <br>
-Group orders based on the type so it's easy to relay to Chippies staff. <br>
-Tallies up totals to confirm upon pickup. <br>
-Log the orders for reference / print. <br>
+Takes the hard work out of chippies orders using this simple web based SPA.
 
-Example menu:
+# Example Nginx configuration to server SPA 
+
+```
+server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+  server_name chippies.server.com;
+
+  location / { 
+    proxy_pass http://localhost:5000;
+  }
+
+  location /admin_panel {
+    proxy_pass http://localhost:5000;
+    auth_basic "Restricted Content";
+    auth_basic_user_file /etc/nginx/.htpasswd; # For admin interface in SPA
+  }
+}
+```
+
+# Example menu:
 ```
   -----------------------------------------------
   |               CHIPPIES MENU                 |
