@@ -14,11 +14,10 @@ Takes the hard work out of chippies orders using this simple web based SPA.
 
 This code base is in dire need of refactoring. I just pumped this out and didn't actually write pythonically :(
 
-# Example Nginx configuration to server SPA 
+# Example Nginx configuration to serve SPA 
 
 ```
 server {
-  listen 80 default_server;
   listen [::]:80 default_server;
   server_name chippies.server.com;
 
