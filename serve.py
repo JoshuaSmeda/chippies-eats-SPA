@@ -12,20 +12,6 @@ class setup_datastores:
   def __init__(self, datastore_name):
     self.datastore_name = datastore_name
 
-#  def create_datastore(self):
-#    if not self.datastore_name:
-##      print("No datastores supplied - please recheck config.py")
-#    else:
-#      for name in self.datastore_name:
-#        try:
-#          sqlite3.connect(name)
-##        except Exception as e:
-#          print("Error when creating datastores: % " % str(e))
-#          quit()
-
-#setup = setup_datastores(['user.db', 'food.db', 'order.db'])
-#setup.create_datastore()
-
 user_db = sqlite3.connect('user.db')
 food_db = sqlite3.connect('food.db')
 order_db = sqlite3.connect('order.db')
@@ -216,9 +202,8 @@ def AddUser():
 
 @app.route("/submitdetails", methods = ["POST","GET"])
 def Submit_Details():
-    msg = "was successfull"
+    msg = "was successful"
     return render_template("success.html", msg = msg)
 
 if __name__ == "__main__":
-#   app.run(debug=True) # Replaced by Waitress - "Production WS"
      serve(app, host='127.0.0.1', port=5000)
