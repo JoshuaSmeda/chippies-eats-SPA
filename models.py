@@ -1,6 +1,7 @@
 import os
 from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
+from datetime import date
 
 db = SQLAlchemy()
 '''
@@ -25,15 +26,77 @@ def db_drop_and_create_all():
     db.drop_all()
     db.create_all()
 
+class User(db.Model):
+    __tablename__ = 'customers'
+    id = Column(Integer, primary_key=True)
+    full_name = Column(String(80), unique=True)
+    email_address = Column(String(50))
+    cellphone_number = Column(String(80), unique=True)
+
+    def __init__(self, full_name, email_address, cellphone_number):
+        self.full_name = full_name
+        self.email_address = email_address
+        self.cellphone_number = cellphone_number
+
+    def details(self):
+        return {
+                'id': self.id,
+                'full_name': self.full_name,
+                'email_address': self.email_address,
+                'cellphone_number': self.cellphone_number
+        }
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit
+
+
+class Order(db.Model):
+    __tablename__ = 'food_orders'
+    id = Column(Integer, primary_key=True)
+    customer = Column(String(80), unique=True)
+    food_item = Column(String(80))
+
+
+    def __init__(self, customer, food_item):
+        self.customer = customer
+        self.food_item = food_item
+
+    def details(self):
+        return {
+                'id': self.id,
+                'customer': self.customer,
+                'food_item': self.food_item
+        }
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+
 class Food(db.Model):
-    __tablename__ = 'food'
+    __tablename__ = 'foods'
     id = Column(Integer, primary_key=True)
     title = Column(String(80), unique=True)
     created_date = Column(db.DateTime)
 
     def __init__(self, title, created_date):
         self_title = title
-        self.created_date = created_date
+        self.created_date = date.today()
 
     def details(self):
         return {

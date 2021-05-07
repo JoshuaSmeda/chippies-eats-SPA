@@ -1,5 +1,5 @@
 $(document).ready(function() {
-        console.log("JQuery Loaded");
+        console.log("JQuery Loaded successfully. Ready to process orders!");
 	$('form').on('submit', function(event) {
 		$.ajax({
 			data : {
@@ -21,7 +21,6 @@ $(document).ready(function() {
 			}
 
 		});
-
 		event.preventDefault();
 	});
 });

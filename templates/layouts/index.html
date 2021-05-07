@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Chippies Order Submission Application">
+    <meta name="description" content="ChippiesEats Ordering SPA">
     <meta name="author" content="Joshua Smeda">
     <link rel="icon" href="https://img.icons8.com/nolan/64/000000/puzzle.png">
 
@@ -24,21 +24,21 @@
       <div class="text-center mb-4">
         <img class="mb-4" src="/static/mrd_logo.svg" alt="" width="82" height="82">
         <h1 class="h3 mb-3 font-weight-normal">ChippiesEats?</h1>
-        <p><code>Hooray! It's that day again... Chippies day. Select your name, order and submit before submissions close. I'll automatically forward your order to the man in charge - don't worry :-)</code></p>
+        <p><code>Hooray! It's that day again... Chippies day. Select your name, order and ring it up! I'll automatically forward your order to the poor sucka managing them - don't worry :-)</code></p>
       </div>
 
       <div class="form-label-group">
         <select id="user" class="form-control" required>
           <option value="" disabled selected>Who are you?</option>
             {% for j in user_rows %}
-            <option id={{ j["name"] }} value="{{j}}">{{ j["name"] }}</option>
+            <option id={{j}} value="{{j}}">{{j}}</option>
             {% endfor %}
         </select>
         <br>
         <select id="menu" class="form-control" required>
-          <option value="" disabled selected>Pick your meal</option>
+          <option value="" disabled selected>You hungry?</option>
             {% for k in menu_rows %}
-            <option id={{k ["name"] }} value="{{k ["name"] }}">{{ k["name"] }}</option>
+            <option id={{k}} value="{{k}}">{{k}}</option>
             {% endfor %}
         </select>
           <br>
@@ -48,7 +48,7 @@
           <button class="btn btn-lg btn-primary btn-block" type="submit">Ring it up!</button>
       </div>
 
-      <p class="mt-5 mb-3 text-muted text-center">&copy; 2019 - Made by Joshua Smeda</p>
+      <p class="mt-5 mb-3 text-muted text-center">&copy; 2019 - Made by Joshua Smeda (don't sue me)</p>
 
     </form>
   </body>
