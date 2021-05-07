@@ -22,7 +22,7 @@ def create_app(test_config=None):
         try:
             foods = Food.query.order_by(Food.created_date).all()
             food = []
-            food = [x.create_date for x in foods]
+            food = [x.created_date for x in foods]
             return jsonify(
                     {
                         "success": True,
