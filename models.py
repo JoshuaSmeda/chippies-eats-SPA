@@ -4,10 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 
 db = SQLAlchemy()
-'''
-setup_db(app):
-    binds a flask application and a SQLAlchemy service
-'''
 
 def setup_db(app):
     database_name = 'joshua.s' # Local psql test
@@ -51,11 +47,11 @@ class User(db.Model):
         db.session.commit()
 
     def delete(self):
-        db.session.delete(self)
-        db.session.commit()
+        x = db.session.delete(self)
+        y = db.session.commit()
 
     def update(self):
-        db.session.commit
+        db.session.commit()
 
 
 class Order(db.Model):
@@ -63,7 +59,6 @@ class Order(db.Model):
     id = Column(Integer, primary_key=True)
     customer = Column(String(80), unique=True)
     food_item = Column(String(80))
-
 
     def __init__(self, customer, food_item):
         self.customer = customer

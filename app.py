@@ -26,6 +26,7 @@ def create_app(test_config=None):
             all_foods = Food.query.order_by(Food.title).all()
             foods = []
             foods = [z.title for z in all_foods]
+
             return render_template('/layouts/index.html', user_rows=users, menu_rows=foods), 200
         except:
             abort(500)
@@ -54,18 +55,40 @@ def create_app(test_config=None):
     def admin_panel():
         return render_template("/layouts/admin_panel.html")
 
+    # temp route
     @app.route("/test", methods=['POST', 'GET'])
     def test_menu():
         users = User.query.all()
         return render_template("test.html", user_data=users)
 
-    @app.route('/adc', methods=['POST'])
-    def test():
-        print(request.headers)
-        print(request)
-        print(request.data)
-        return 'test'
+
+    @app.route("/add_user", methods=['POST'])
+    def add_user():
+        full_name = request.form['full_name']
+        email_address = request.form['email_address']
+        phone_number = request.form['phone_number']
+        obj = User(full_name, email_address, phone_number)
+        try:
+            add_users = User.insert(obj)
+        except SQLAlchemyError as Err:
+            print(Err)
+            return jsonify({"error": "Error occured when attempting to modify users table: %s"}) % Err
+        else:
+            return jsonify({"name": "User successfully added - Reloading in 10 seconds"})
  
+    @app.route('/delete_all_users', methods=['POST'])
+    def delete_all_users():
+        try:
+            all_users = User.query.all()
+            for usr in all_users:
+                User.delete(usr)
+
+        except SQLAlchemyError as exc:
+            print(exc)
+            return jsonify({"error": "Unable to delete all users"})
+        else:
+            return jsonify({"name": "All users succcessfully deleted - Reloading in 10 seconds"})
+
     @app.route('/food')
     def get_food():
         try:
