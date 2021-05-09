@@ -6,8 +6,10 @@ from datetime import date
 db = SQLAlchemy()
 
 def setup_db(app):
-    database_name = 'joshua.s' # Local psql test
-    default_database_path= "postgres://{}:{}@{}/{}".format('postgres', 'password', 'localhost:5432', database_name)
+    database_name = 'joshuas' # Local psql test
+    password = 'mongoose1'
+    default_database_path= "postgres://{}:{}@{}/{}".format('postgres', password, 'localhost:5432', database_name)
+    print(default_database_path)
     database_path = os.getenv('DATABASE_URL', default_database_path) # Heroku
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -47,8 +49,8 @@ class User(db.Model):
         db.session.commit()
 
     def delete(self):
-        x = db.session.delete(self)
-        y = db.session.commit()
+        db.session.delete(self)
+        db.session.commit()
 
     def update(self):
         db.session.commit()

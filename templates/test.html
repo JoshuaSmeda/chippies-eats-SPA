@@ -283,7 +283,7 @@ $(document).ready(function(){
 			else {
 				setTimeout(function() {
 					location.reload();
-				}, 10000);
+				}, 5000);
 				console.log(data.name)
 				$('#successAlert').text(data.name).show();
 				$('#errorAlert').hide();
@@ -291,7 +291,45 @@ $(document).ready(function(){
 		})
 		event.preventDefault();
     })
-
+	$(document).on('click', ".delete", function() {
+		var userid = $(this).attr("data-id");
+		console.log(userid)
+		$.ajax ({
+			data : {
+				userid: userid,
+			},
+			type: 'POST',
+			url: '/delete_user'
+		})
+	})
+	//$("#delete-customer-btn").on("click", function(event) {
+	//	var go = $(this).attr("data-id");
+	//	console.log(go)
+	//})
+		/*
+		$.ajax({
+			type: 'POST',
+			url: '/delete_user'
+		})
+		.done(function(data) {
+			if (data.error) {
+				$('#errorAlert').text(data.error).show();
+					$('#successAlert').hide();
+				}
+				else {
+					setTimeout(function() {
+						location.reload();
+					}, 5000);
+					$('#successAlert').text(data.name).show();
+					$('#errorAlert').hide();
+				}
+			})
+			event.preventDefault();
+	})
+	*/
+	// This deletes all users!
+	// id="deleteAllCustomersModal"
+	/*
 	$("#delete-all-users-btn").on("click", function(event) {
 		$.ajax({
 			type: 'POST',
@@ -312,25 +350,7 @@ $(document).ready(function(){
 			})
 			event.preventDefault();
     })
-
-	/*function edit(element) {
-		console.log(element)
-		console.log('init')
-		$.ajax({
-			url: '/get_customer_by_id',
-			data: {
-				id: $(element).attr('data_id')
-			},
-			type: 'POST',
-			success: function(res) {
-				console.log(res);
-			},
-			error: function(error) {
-				console.log(error)
-			}
-		})
-	} */
-
+	*/
 	$(document).on('click', ".edit", function() {
 		var go = $(this).attr("data-id");
 		console.log(go)
@@ -383,7 +403,6 @@ $(document).ready(function(){
                         <td>{{j.email_address}}</td>
                         <td>{{j.cellphone_number}}</td>
 						<td>
-							<a>{{j.id}}</a>
 							<a href="#editEmployeeModal" class="edit" data-id={{j.id}} data-toggle="modal"><i class="material-icons view_data" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 							<a href="#deleteCustomerModal" class="delete" data-id={{j.id}} data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 						</td>
@@ -475,11 +494,11 @@ $(document).ready(function(){
 		<div class="modal-content">
 			<form>
 				<div class="modal-header">						
-					<h4 class="modal-title">Delete Employee</h4>
+					<h4 class="modal-title">Delete All Customers</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
-					<p>Are you sure you want to delete all these records?</p>
+					<p>Are you sure you want to delete all these customers?</p>
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
 				<div class="modal-footer">
@@ -506,7 +525,7 @@ $(document).ready(function(){
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" id="delete-btn" class="btn btn-danger" value="Delete">
+					<input type="submit" id="delete-customer-btn" class="btn btn-danger" value="Delete">
 				</div>
 			</form>
 		</div>
