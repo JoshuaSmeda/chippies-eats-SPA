@@ -26,6 +26,10 @@ server {
 }
 
 
+# To remove pending orders, there's a hidden route (so it's not abused)
+
+You can navigate to `/remove_pending_orders`, it should return a 200 OK.
+
 Step 1.
 
 Init heroku app

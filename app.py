@@ -3,6 +3,7 @@ import uuid
 from flask import Flask, request, abort, jsonify, render_template
 from flask_cors import CORS
 from models import setup_db, Food, Order, User, db_drop_and_create_all
+from datetime import datetime
 
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
@@ -79,6 +80,46 @@ def create_app(test_config=None):
         return render_template("pending_orders.html", order_rows=orders, food_orders=count_orders);
 
 
+    @app.route("/add_menu_item", methods=['POST'])
+    def add_menu_item():
+        date_now = datetime.now()
+        date_time = date_now.strftime("%d/%m/%Y")
+        obj = Food(request.form['title'], date_time)
+        try:
+            Food.insert(obj)
+        except SQLAlchemyError as exc:
+            print(exc)
+            return jsonify({"error": "Error occurred when attempting to add menu item"})
+        else:
+            return jsonify({"name": "Menu item successfully added - Reloading"})
+
+
+    @app.route("/delete_all_menu_items", methods=['POST'])
+    def delete_all_menu_items():
+        try:
+            obj = Food.query.all()
+            for item in obj:
+                Food.delete(item)
+        except SQLAlchemyError as exc:
+            print(exc)
+            return jsonify({"error": "Unable to delete all items"})
+        else:
+            return jsonify({"name": "All items successfully deleted - Reloading in 5 seconds"})
+
+
+    @app.route('/delete_menu_item', methods=['POST'])
+    def delete_menu_item():
+        record_id = request.form['itemid']
+        try:
+            obj = Food.query.filter(Food.id == record_id)
+            for item in obj:
+                Food.delete(item)
+        except:
+            return jsonify({"error": "Unable to delete record"})
+        else:
+            return jsonify({"name": "Successfully deleted record"})
+
+
     @app.route("/add_user", methods=['POST'])
     def add_user():
         full_name = request.form['full_name']
@@ -86,10 +127,10 @@ def create_app(test_config=None):
         phone_number = request.form['phone_number']
         obj = User(full_name, email_address, phone_number)
         try:
-            add_users = User.insert(obj)
+            User.insert(obj)
         except SQLAlchemyError as exc:
             print(exc)
-            return jsonify({"error": "Error occured when attempting to add user"})
+            return jsonify({"error": "Error occurred when attempting to add user"})
         else:
             return jsonify({"name": "User successfully added - Reloading"})
  
@@ -106,6 +147,7 @@ def create_app(test_config=None):
         else:
             return jsonify({"name": "Successfully deleted record"})
 
+
     @app.route('/delete_all_users', methods=['POST'])
     def delete_all_users():
         try:
@@ -116,15 +158,24 @@ def create_app(test_config=None):
             print(exc)
             return jsonify({"error": "Unable to delete all users"})
         else:
-            return jsonify({"name": "All users successfully deleted - Reloading in 10 seconds"})
+            return jsonify({"name": "All users successfully deleted - Reloading in 5 seconds"})
 
+    @app.route('/remove_pending_orders')
+    def remove_pending_orders():
+        try:
+            obj = Order.query.all()
+            for order in obj:
+                Order.delete(order)
+        except SQLAlchemyError as exc:
+            print(exc)
+        return '', 200
 
     @app.errorhandler(500)
     def server_error(error):
         return jsonify({
             "success": False,
             "error": 500,
-            "message": "Server Error. Ensure PSQL is up and running"
+            "message": "Server Error. Check server logs!"
         }), 500
 
     return app

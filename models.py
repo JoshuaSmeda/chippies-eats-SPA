@@ -1,7 +1,6 @@
 import os
 from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
-from datetime import date
 
 db = SQLAlchemy()
 
@@ -96,8 +95,8 @@ class Food(db.Model):
     created_date = Column(db.DateTime)
 
     def __init__(self, title, created_date):
-        self_title = title
-        self.created_date = date.today()
+        self.title = title
+        self.created_date = created_date
 
     def details(self):
         return {
