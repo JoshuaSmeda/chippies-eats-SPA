@@ -23,6 +23,7 @@ def db_drop_and_create_all():
     db.drop_all()
     db.create_all()
 
+
 class User(db.Model):
     __tablename__ = 'customers'
     id = Column(Integer, primary_key=True)
@@ -86,6 +87,7 @@ class Order(db.Model):
     def group_orders(self):
         result = db.session.execute('SELECT food_item, COUNT(food_item) FROM food_orders GROUP BY food_item')
         return result
+
 
 class Food(db.Model):
     __tablename__ = 'foods'

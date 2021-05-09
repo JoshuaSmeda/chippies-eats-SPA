@@ -54,22 +54,21 @@ def create_app(test_config=None):
     def director():
         return render_template("director.html")
 
-    # User Items
+
     @app.route("/director/user_administration", methods=['GET'])
     def view_user_administration():
         users = User.query.all()
         return render_template("user_administration.html", user_data=users)
 
-    # Food Items
+
     @app.route("/director/menu_administration", methods=['GET'])
     def view_menu_administration():
         foods = Food.query.all()
         return render_template("menu_administration.html", food_data=foods)
 
-    # Pending Orders
+
     @app.route("/director/pending_orders", methods=['GET'])
     def view_pending_orders():
-        # fetch all from orders table
         all_orders = Order.query.all()
         orders = []
         orders = [x for x in all_orders]
@@ -77,8 +76,8 @@ def create_app(test_config=None):
         query_count_orders = Order.group_orders(all_orders)
         count_orders = []
         count_orders = [c for c in query_count_orders]
-    
         return render_template("pending_orders.html", order_rows=orders, food_orders=count_orders);
+
 
     @app.route("/add_user", methods=['POST'])
     def add_user():
