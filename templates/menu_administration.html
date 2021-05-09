@@ -260,6 +260,7 @@ $(document).ready(function(){
 		}
 	});
 
+	// Adds a single user
     $("#submit-btn").on("click", function(event) {
         var full_name = $('input[name="add_full_name"]').val();
 		var email_address = $('input[name="add_email_address"]').val();
@@ -283,7 +284,7 @@ $(document).ready(function(){
 			else {
 				setTimeout(function() {
 					location.reload();
-				}, 5000);
+				}, 1000);
 				console.log(data.name)
 				$('#successAlert').text(data.name).show();
 				$('#errorAlert').hide();
@@ -291,6 +292,8 @@ $(document).ready(function(){
 		})
 		event.preventDefault();
     })
+
+    // Deletes a single customer
 	$(document).on('click', ".delete", function() {
 		var userid = $(this).attr("data-id");
 		console.log(userid)
@@ -301,60 +304,48 @@ $(document).ready(function(){
 			type: 'POST',
 			url: '/delete_user'
 		})
-	})
-	//$("#delete-customer-btn").on("click", function(event) {
-	//	var go = $(this).attr("data-id");
-	//	console.log(go)
-	//})
-		/*
-		$.ajax({
-			type: 'POST',
-			url: '/delete_user'
-		})
 		.done(function(data) {
-			if (data.error) {
-				$('#errorAlert').text(data.error).show();
-					$('#successAlert').hide();
-				}
-				else {
-					setTimeout(function() {
-						location.reload();
-					}, 5000);
-					$('#successAlert').text(data.name).show();
-					$('#errorAlert').hide();
-				}
-			})
-			event.preventDefault();
-	})
-	*/
-	// This deletes all users!
-	// id="deleteAllCustomersModal"
-	/*
+		if (data.error) {
+			$('#errorAlert').text(data.error).show();
+				$('#successAlert').hide();
+			}
+			else {
+				setTimeout(function() {
+					location.reload();
+				}, 5000);
+				$('#successAlert').text(data.name).show();
+				$('#errorAlert').hide();
+			}
+		})
+		event.preventDefault();
+	});
+
+	// Deletes all users!
 	$("#delete-all-users-btn").on("click", function(event) {
 		$.ajax({
 			type: 'POST',
 			url: '/delete_all_users'
 		})
 		.done(function(data) {
-			if (data.error) {
-					$('#errorAlert').text(data.error).show();
-					$('#successAlert').hide();
-				}
-				else {
-					setTimeout(function() {
-						location.reload();
-					}, 10000);
-					$('#successAlert').text(data.name).show();
-					$('#errorAlert').hide();
-				}
-			})
-			event.preventDefault();
-    })
-	*/
-	$(document).on('click', ".edit", function() {
-		var go = $(this).attr("data-id");
-		console.log(go)
+		if (data.error) {
+				$('#errorAlert').text(data.error).show();
+				$('#successAlert').hide();
+			}
+			else {
+				setTimeout(function() {
+					location.reload();
+				}, 5000);
+				$('#successAlert').text(data.name).show();
+				$('#errorAlert').hide();
+			}
+		})
+		event.preventDefault();
 	});
+
+	//$(document).on('click', ".edit", function() {
+	//	var go = $(this).attr("data-id");
+	//	console.log(go)
+	//});
 });
 
 </script>
@@ -370,7 +361,8 @@ $(document).ready(function(){
 					</div>
 					<div class="col-sm-6">
 						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Customer</span></a>
-						<a href="#deleteAllCustomersModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete All Customers</span></a>						
+						<a href="#deleteAllCustomersModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete All Customers</span></a>
+						<a href="../" class="btn btn-info"><i class="material-icons">&#xE88a;</i> <span>Home</span></a>					
 					</div>
 				</div>
 			</div>

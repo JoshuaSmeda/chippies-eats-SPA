@@ -22,11 +22,9 @@ def create_app(test_config=None):
             all_users = User.query.order_by(User.full_name).all()
             users = []
             users = [y.full_name for y in all_users]
-
             all_foods = Food.query.order_by(Food.title).all()
             foods = []
             foods = [z.title for z in all_foods]
-
             return render_template('/layouts/index.html', user_rows=users, menu_rows=foods), 200
         except:
             abort(500)
@@ -47,22 +45,40 @@ def create_app(test_config=None):
                 print(error)
                 return jsonify({"error": "Oops. You've already ordered before!"})
             else:
-                return jsonify({"sucess" : "Hooray. Order successfully placed"})
+                return jsonify({"name" : "Hooray. Order successfully placed"})
             finally:
                 print("Workflow completed for request ID: %s" % request_id)
 
 
-    @app.route("/admin_panel", methods=['GET'])
-    def admin_panel():
-        return render_template("/layouts/admin_panel.html")
+    @app.route("/director", methods=['GET'])
+    def director():
+        return render_template("director.html")
 
-
-    # temp route
-    @app.route("/test", methods=['POST', 'GET'])
-    def test_menu():
+    # User Items
+    @app.route("/director/user_administration", methods=['GET'])
+    def view_user_administration():
         users = User.query.all()
-        return render_template("test.html", user_data=users)
+        return render_template("user_administration.html", user_data=users)
 
+    # Food Items
+    @app.route("/director/menu_administration", methods=['GET'])
+    def view_menu_administration():
+        foods = Food.query.all()
+        return render_template("menu_administration.html", food_data=foods)
+
+    # Pending Orders
+    @app.route("/director/pending_orders", methods=['GET'])
+    def view_pending_orders():
+        # fetch all from orders table
+        all_orders = Order.query.all()
+        orders = []
+        orders = [x for x in all_orders]
+
+        query_count_orders = Order.group_orders(all_orders)
+        count_orders = []
+        count_orders = [c for c in query_count_orders]
+    
+        return render_template("pending_orders.html", order_rows=orders, food_orders=count_orders);
 
     @app.route("/add_user", methods=['POST'])
     def add_user():
@@ -76,7 +92,7 @@ def create_app(test_config=None):
             print(exc)
             return jsonify({"error": "Error occured when attempting to add user"})
         else:
-            return jsonify({"name": "User successfully added - Reloading in 5 seconds"}), 200
+            return jsonify({"name": "User successfully added - Reloading"})
  
 
     @app.route('/delete_user', methods=['POST'])
@@ -85,7 +101,7 @@ def create_app(test_config=None):
         try:
             obj = User.query.filter(User.id == record_id)
             for user in obj:
-                User.delete(obj)
+                User.delete(user)
         except:
             return jsonify({"error": "Unable to delete record"})
         else:
@@ -94,30 +110,16 @@ def create_app(test_config=None):
     @app.route('/delete_all_users', methods=['POST'])
     def delete_all_users():
         try:
-            all_users = User.query.all()
-            for usr in all_users:
+            obj = User.query.all()
+            for usr in obj:
                 User.delete(usr)
         except SQLAlchemyError as exc:
             print(exc)
             return jsonify({"error": "Unable to delete all users"})
         else:
-            return jsonify({"success": "All users succcessfully deleted - Reloading in 10 seconds"})
-    """
-    @app.route('/food')
-    def get_food():
-        try:
-            foods = Food.query.order_by(Food.created_date).all()
-            food = []
-            food = [x.created_date for x in foods]
-            return jsonify(
-                    {
-                        "success": True,
-                        "food name": food
-                    }
-            ), 200
-        except:
-            abort(500)
-    """
+            return jsonify({"name": "All users successfully deleted - Reloading in 10 seconds"})
+
+
     @app.errorhandler(500)
     def server_error(error):
         return jsonify({

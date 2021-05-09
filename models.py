@@ -9,7 +9,6 @@ def setup_db(app):
     database_name = 'joshuas' # Local psql test
     password = 'mongoose1'
     default_database_path= "postgres://{}:{}@{}/{}".format('postgres', password, 'localhost:5432', database_name)
-    print(default_database_path)
     database_path = os.getenv('DATABASE_URL', default_database_path) # Heroku
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -84,6 +83,9 @@ class Order(db.Model):
     def update(self):
         db.session.commit()
 
+    def group_orders(self):
+        result = db.session.execute('SELECT food_item, COUNT(food_item) FROM food_orders GROUP BY food_item')
+        return result
 
 class Food(db.Model):
     __tablename__ = 'foods'
