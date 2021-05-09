@@ -4,7 +4,7 @@ We South Africans love chippies! Take the hard work out of ordering in bulk toda
 
 http://www.eatout.co.za/venue/chippies-prego-rondebosch/
 
-![yummy!](img/Prego-Steak-Roll-Chippies-featured-image.jpg)
+![final](https://user-images.githubusercontent.com/39983886/117582703-99e6f380-b103-11eb-9ace-b65cd7bd9fc6.png)
 
 # chippies_ordering_system
 
