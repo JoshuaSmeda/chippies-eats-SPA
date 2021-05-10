@@ -25,3 +25,4 @@ xacro==1.13.3
 gunicorn==20.0.4
 boto==2.49.0
 botocore==1.16.5
+simplejson==3.17.2

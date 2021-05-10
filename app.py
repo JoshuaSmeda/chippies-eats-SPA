@@ -1,5 +1,4 @@
-import os
-import uuid
+import os, uuid, simplejson
 from flask import Flask, request, abort, jsonify, render_template
 from flask_cors import CORS
 from models import setup_db, Food, Order, User, db_drop_and_create_all
@@ -88,6 +87,15 @@ def create_app(test_config=None):
             return jsonify({"error": "Unable to delete all users"})
         else:
             return jsonify({"name": "All users succcessfully deleted - Reloading in 10 seconds"})
+
+    @app.route('/get_customer_by_id', methods=['POST'])
+    def get_customer_by_id():
+        customer_id = request.form['customer_id']
+        print(customer_id)
+        customer = User.query.get(customer_id)
+        print(customer)
+        print(customer.as_dict())
+        print(User.as_dict())
 
     @app.route('/food')
     def get_food():

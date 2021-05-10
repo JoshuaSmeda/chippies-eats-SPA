@@ -52,7 +52,10 @@ class User(db.Model):
 
     def update(self):
         db.session.commit()
-
+    
+    def as_dict(self):
+       #return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+       return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns}
 
 class Order(db.Model):
     __tablename__ = 'food_orders'

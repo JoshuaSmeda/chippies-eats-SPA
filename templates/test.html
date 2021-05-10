@@ -313,27 +313,21 @@ $(document).ready(function(){
 			event.preventDefault();
     })
 
-	/*function edit(element) {
-		console.log(element)
-		console.log('init')
+	$(document).on('click', ".edit", function() {
+		var customer_id = $(this).attr("data-id");
 		$.ajax({
 			url: '/get_customer_by_id',
 			data: {
-				id: $(element).attr('data_id')
+				customer_id: customer_id
 			},
-			type: 'POST',
-			success: function(res) {
-				console.log(res);
-			},
-			error: function(error) {
-				console.log(error)
+			type: 'POST',	
+			success: function(data) {
+				$('#editEmployeeModal').modal('show')
+				var data_rs = JSON.parse(data)
+				console.log(data_rs)
 			}
 		})
-	} */
-
-	$(document).on('click', ".edit", function() {
-		var go = $(this).attr("data-id");
-		console.log(go)
+		console.log(customer_id)
 	});
 });
 
@@ -449,7 +443,7 @@ $(document).ready(function(){
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Full Name</label>
-						<input type="text" class="form-control" required>
+						<input id="edit_full_name" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>Email <Address></Address></label>
