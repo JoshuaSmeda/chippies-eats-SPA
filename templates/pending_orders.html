@@ -1,0 +1,47 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <title>ChippiesEats - Pending Orders</title>  
+</head>  
+<body>  
+  
+<h3>Current Pending Orders:</h3>
+<a> What is css?</a>
+<br></br>
+<table border=5>  
+    <thead>  
+        <td>DB ID</td>
+        <td>Full Name</td>  
+        <td>Menu Item</td>  
+    </thead>  
+      
+    {% for row in order_rows %}
+    <tr>  
+        <td>{{row["id"]}}</td>  
+        <td>{{row["customer"]}}</td>  
+        <td>{{row["food_item"]}}</td>
+    </tr>
+    {% endfor %}  
+</table>  
+<br><br>  
+
+<h3>Cumulative Order List:</h3>
+
+    <table border=5>
+    <thead>
+        <td>Menu Item</td>
+        <td>Number of Orders</td>
+    </thead>
+    {% for k, v in food_orders %}
+    <tr>
+            <td>{{ k }}</td>
+            <td>{{ v }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<br><br>
+
+<a href="/director">Navigate back to URL director =></a>  
+
+</body>  
+</html>  

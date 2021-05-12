@@ -1,13 +1,13 @@
 import os
 from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
-from datetime import date
 
 db = SQLAlchemy()
 
 def setup_db(app):
-    database_name = 'joshua.s' # Local psql test
-    default_database_path= "postgres://{}:{}@{}/{}".format('postgres', 'password', 'localhost:5432', database_name)
+    database_name = 'joshuas' # Local psql test
+    password = 'mongoose1'
+    default_database_path= "postgres://{}:{}@{}/{}".format('postgres', password, 'localhost:5432', database_name)
     database_path = os.getenv('DATABASE_URL', default_database_path) # Heroku
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -21,6 +21,7 @@ Drops the database tables and starts fresh, can be used to initialize a clean da
 def db_drop_and_create_all():
     db.drop_all()
     db.create_all()
+
 
 class User(db.Model):
     __tablename__ = 'customers'
@@ -47,8 +48,8 @@ class User(db.Model):
         db.session.commit()
 
     def delete(self):
-        x = db.session.delete(self)
-        y = db.session.commit()
+        db.session.delete(self)
+        db.session.commit()
 
     def update(self):
         db.session.commit()
@@ -85,6 +86,10 @@ class Order(db.Model):
     def update(self):
         db.session.commit()
 
+    def group_orders(self):
+        result = db.session.execute('SELECT food_item, COUNT(food_item) FROM food_orders GROUP BY food_item')
+        return result
+
 
 class Food(db.Model):
     __tablename__ = 'foods'
@@ -93,8 +98,8 @@ class Food(db.Model):
     created_date = Column(db.DateTime)
 
     def __init__(self, title, created_date):
-        self_title = title
-        self.created_date = date.today()
+        self.title = title
+        self.created_date = created_date
 
     def details(self):
         return {

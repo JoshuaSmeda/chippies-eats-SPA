@@ -1,14 +1,14 @@
 {
-  "name": "Small Sharp Tool",
-  "description": "This app does one little thing, and does it well.",
+  "name": "ChippiesEats",
+  "description": "Take the hard work out of food ordering. Use ChippiesEats today!",
   "keywords": [
-    "productivity",
-    "HTML5",
-    "scalpel"
+    "python",
+    "flask",
+    "food-ordering"
   ],
-  "website": "https://small-sharp-tool.com/",
-  "repository": "https://github.com/jane-doe/small-sharp-tool",
-  "logo": "https://small-sharp-tool.com/logo.svg",
+  "website": "https://github.com/JoshuaSmeda/chippies-eats-SPA",
+  "repository": "https://github.com/JoshuaSmeda/chippies-eats-SPA",
+  "logo": "https://github.com/JoshuaSmeda/chippies-eats-SPA",
   "success_url": "/",
   "env": {
     "SECRET_TOKEN": {
@@ -17,7 +17,7 @@
     },
     "WEB_CONCURRENCY": {
       "description": "The number of processes to run.",
-      "value": "5"
+      "value": "3"
     }
   },
   "formation": {
@@ -35,12 +35,5 @@
         "version": "9.5"
       }
     }
-  ],
-  "environments": {
-    "test": {
-      "scripts": {
-        "test": "bundle exec rake test"
-      }
-    }
-  }
+  ]
 }
