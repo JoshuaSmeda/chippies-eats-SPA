@@ -13,8 +13,8 @@ def create_app(test_config=None):
     CORS(app)
 
     """ uncomment at the first time running the app """
-    # db_drop_and_create_all()
-    # create a flag to check this
+    db_drop_and_create_all()
+    #create a flag to check this
 
     @app.route('/', methods=['GET'])
     def index():
@@ -26,7 +26,8 @@ def create_app(test_config=None):
             foods = []
             foods = [z.title for z in all_foods]
             return render_template('/layouts/index.html', user_rows=users, menu_rows=foods), 200
-        except:
+        except Exception as error:
+            print(error)
             abort(500)
 
     @app.route("/process", methods=['POST'])
@@ -180,10 +181,11 @@ def create_app(test_config=None):
 
     @app.errorhandler(500)
     def server_error(error):
+        print(error)
         return jsonify({
             "success": False,
             "error": 500,
-            "message": "Server Error. Check server logs!"
+            "message": str(error)
         }), 500
 
     return app
