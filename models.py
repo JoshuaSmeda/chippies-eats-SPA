@@ -5,9 +5,9 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 def setup_db(app):
-    database_name = 'joshua.s' # Local psql test
+    database_name = 'joshuas' # Local psql test
     # password = 'mongoose1'
-    password = ''
+    password = 'mongoose1'
     default_database_path= "postgres://{}:{}@{}/{}".format('postgres', password, 'localhost:5432', database_name)
     database_path = os.getenv('DATABASE_URL', default_database_path) # Heroku
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path

@@ -1,4 +1,4 @@
-import os, uuid, simplejson
+import os, uuid, simplejson, json
 from flask import Flask, request, abort, jsonify, render_template
 from flask_cors import CORS
 from models import setup_db, Food, Order, User, db_drop_and_create_all
@@ -13,7 +13,7 @@ def create_app(test_config=None):
     CORS(app)
 
     """ uncomment at the first time running the app """
-    db_drop_and_create_all()
+    # db_drop_and_create_all()
     #create a flag to check this
 
     @app.route('/', methods=['GET'])
@@ -38,11 +38,11 @@ def create_app(test_config=None):
             obj = Order(request.form['name'], request.form['menu'])
             try:
                 process_order = Order.insert(obj)
-            except IntegrityError as e:
+            except IntegrityError as exc:
                 """
                 Preventing the a user from making duplicate orders, handled by unique constraint in the DB table
                 """
-                error = str(e.__dict__['orig'])
+                error = str(exc.__dict__['orig'])
                 print(error)
                 return jsonify({"error": "Oops. You've already ordered before!"})
             else:
@@ -83,13 +83,12 @@ def create_app(test_config=None):
     @app.route("/add_menu_item", methods=['POST'])
     def add_menu_item():
         date_now = datetime.now()
-        date_time = date_now.strftime("%d/%m/%Y")
-        obj = Food(request.form['title'], date_time)
+        obj = Food(request.form['title'], date_now)
         try:
             Food.insert(obj)
         except SQLAlchemyError as exc:
-            print(exc)
-            return jsonify({"error": "Error occurred when attempting to add menu item"})
+            error = str(exc.__dict__['orig'])
+            return jsonify({"error": "Oops! %s" % error})
         else:
             return jsonify({"name": "Menu item successfully added - Reloading"})
 
@@ -101,8 +100,8 @@ def create_app(test_config=None):
             for item in obj:
                 Food.delete(item)
         except SQLAlchemyError as exc:
-            print(exc)
-            return jsonify({"error": "Unable to delete all items"})
+            error = str(exc.__dict__['orig'])
+            return jsonify({"error": "Oops! %s" % error})
         else:
             return jsonify({"name": "All items successfully deleted - Reloading in 5 seconds"})
 
@@ -114,8 +113,9 @@ def create_app(test_config=None):
             obj = Food.query.filter(Food.id == record_id)
             for item in obj:
                 Food.delete(item)
-        except:
-            return jsonify({"error": "Unable to delete record"})
+        except SQLAlchemyError as exc:
+            error = str(exc.__dict__['orig'])
+            return jsonify({"error": "Oops! %s" % error})
         else:
             return jsonify({"name": "Successfully deleted record"})
 
@@ -124,13 +124,13 @@ def create_app(test_config=None):
     def add_user():
         full_name = request.form['full_name']
         email_address = request.form['email_address']
-        phone_number = request.form['phone_number']
-        obj = User(full_name, email_address, phone_number)
+        cellphone_number = request.form['cellphone_number']
+        obj = User(full_name, email_address, cellphone_number)
         try:
             User.insert(obj)
         except SQLAlchemyError as exc:
-            print(exc)
-            return jsonify({"error": "Error occurred when attempting to add user"})
+            error = str(exc.__dict__['orig'])
+            return jsonify({"error": "Oops! %s" % error})
         else:
             return jsonify({"name": "User successfully added - Reloading"})
 
@@ -141,8 +141,9 @@ def create_app(test_config=None):
             obj = User.query.filter(User.id == record_id)
             for user in obj:
                 User.delete(user)
-        except:
-            return jsonify({"error": "Unable to delete record"})
+        except SQLAlchemyError as exc:
+            error = str(exc.__dict__['orig'])
+            return jsonify({"error": "Oops! %s" % error})
         else:
             return jsonify({"name": "Successfully deleted record"})
 
@@ -154,19 +155,33 @@ def create_app(test_config=None):
             for usr in obj:
                 User.delete(usr)
         except SQLAlchemyError as exc:
-            print(exc)
-            return jsonify({"error": "Unable to delete all users"})
+            error = str(exc.__dict__['orig'])
+            return jsonify({"error": "Oops! %s" % error})
         else:
             return jsonify({"name": "All users successfully deleted - Reloading in 5 seconds"})
 
     @app.route('/get_customer_by_id', methods=['POST'])
     def get_customer_by_id():
         customer_id = request.form['customer_id']
-        print(customer_id)
         customer = User.query.get(customer_id)
-        print(customer)
-        print(customer.as_dict())
-        print(User.as_dict())
+        cust_dict = customer.as_dict()
+        json_response = json.dumps(cust_dict)
+        return json_response
+
+    @app.route('/update_user_record', methods=['POST'])
+    def update_user_record():
+        customer_id = request.form['customer_id']
+        full_name = request.form['full_name']
+        email_address = request.form['email_address']
+        cellphone_number = request.form['cellphone_number']
+        try:
+            obj = User.query.filter(User.id == customer_id).update({"full_name": full_name, "email_address": email_address, "cellphone_number": cellphone_number})
+            User.update(obj)
+        except SQLAlchemyError as exc:
+            error = str(exc.__dict__['orig'])
+            return jsonify({"error": "Oops. %s" % error})
+        else:
+            return jsonify({"name": "Record successfully edited. Refreshing!"})
 
 
     @app.route('/remove_pending_orders')
