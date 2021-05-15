@@ -261,36 +261,35 @@ $(document).ready(function(){
 	});
 
 	// Adds a single user
-    $("#submit-btn").on("click", function(event) {
+        $("#submit-btn").on("click", function(event) {
         var full_name = $('input[name="add_full_name"]').val();
-		var email_address = $('input[name="add_email_address"]').val();
-		var phone_number = $('input[name="add_phone_number"]').val();
-		
-		$.ajax({
-			data : {
-				full_name: full_name,
-				email_address: email_address,
-				phone_number: phone_number
-			},
-			type: 'POST',
-			url: '/add_user'
-		})
-		.done(function(data) {
-			if (data.error) {
-				console.log(data.error);
-				$('#errorAlert').text(data.error).show();
-				$('#successAlert').hide();
-			}
-			else {
-				setTimeout(function() {
-					location.reload();
-				}, 1000);
-				console.log(data.name)
-				$('#successAlert').text(data.name).show();
-				$('#errorAlert').hide();
-			}
-		})
-		event.preventDefault();
+	var email_address = $('input[name="add_email_address"]').val();
+	var phone_number = $('input[name="add_phone_number"]').val();
+	$.ajax({
+		data : {
+			full_name: full_name,
+			email_address: email_address,
+			phone_number: phone_number
+		},
+		type: 'POST',
+		url: '/add_user'
+	})
+	.done(function(data) {
+		if (data.error) {
+			console.log(data.error);
+			$('#errorAlert').text(data.error).show();
+			$('#successAlert').hide();
+		}
+		else {
+			setTimeout(function() {
+				location.reload();
+			}, 1000);
+			console.log(data.name)
+			$('#successAlert').text(data.name).show();
+			$('#errorAlert').hide();
+		}
+	})
+	event.preventDefault();
     })
 
     // Deletes a single customer
@@ -320,6 +319,25 @@ $(document).ready(function(){
 		event.preventDefault();
 	});
 
+
+	// Edit customer 
+	$(document).on('click', ".edit", function() {
+		var customer_id = $(this).attr("data-id");
+		$.ajax({
+			url: '/get_customer_by_id',
+			data: {
+				customer_id: customer_id
+			},
+			type: 'POST',	
+			success: function(data) {
+				$('#editEmployeeModal').modal('show')
+				var data_rs = JSON.parse(data)
+				console.log(data_rs)
+			}
+		})
+		console.log(customer_id)
+	});
+
 	// Deletes all users!
 	$("#delete-all-users-btn").on("click", function(event) {
 		$.ajax({
@@ -342,10 +360,6 @@ $(document).ready(function(){
 		event.preventDefault();
 	});
 
-	//$(document).on('click', ".edit", function() {
-	//	var go = $(this).attr("data-id");
-	//	console.log(go)
-	//});
 });
 
 </script>
@@ -460,7 +474,7 @@ $(document).ready(function(){
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Full Name</label>
-						<input type="text" class="form-control" required>
+						<input id="edit_full_name" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>Email <Address></Address></label>
