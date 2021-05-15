@@ -1,3 +1,6 @@
+[CLI version](https://github.com/JoshuaSmeda/chippies_ordering_system/tree/master) <br>
+[Web based SPA](https://github.com/JoshuaSmeda/chippies_ordering_system/tree/web_app)
+
 # chippies_ordering_system
 
 We South Africans love chippies! Take the hard work out of ordering in bulk today!
