@@ -38,3 +38,6 @@ Step 1.
 Init heroku app
 Create build - heroku buildpacks:set heroku/python
 
+
+
+print statements will show in web log

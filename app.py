@@ -25,7 +25,7 @@ def create_app(test_config=None):
             all_foods = Food.query.order_by(Food.title).all()
             foods = []
             foods = [z.title for z in all_foods]
-            return render_template('/layouts/index.html', user_rows=users, menu_rows=foods), 200
+            return render_template('index.html', user_rows=users, menu_rows=foods), 200
         except Exception as error:
             print(error)
             abort(500)
@@ -44,9 +44,9 @@ def create_app(test_config=None):
                 """
                 error = str(exc.__dict__['orig'])
                 print(error)
-                return jsonify({"error": "Oops. You've already ordered before!"})
+                return jsonify({"error": "Oops! You've already ordered before :<"})
             else:
-                return jsonify({"name" : "Hooray. Order successfully placed"})
+                return jsonify({"name" : "Hooray! Order successfully placed :>"})
             finally:
                 print("Workflow completed for request ID: %s" % request_id)
 
