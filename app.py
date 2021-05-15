@@ -13,12 +13,12 @@ def create_app(test_config=None):
     CORS(app)
 
     """ uncomment at the first time running the app """
-    fn = 'flush_and_create_db.file'
-    if os.path.isfile(fn):
-        print("Not flushing and creating databases since '%s' exists. If this is a new instance, ensure this file doesn't exist" % fn)
-    else:
-        db_drop_and_create_all()
-        os.mknod(fn)
+    #fn = 'flush_and_create_db.file'
+    #if os.path.isfile(fn):
+    #    print("Not flushing and creating databases since '%s' exists. If this is a new instance, ensure this file doesn't exist" % fn)
+    #else:
+    db_drop_and_create_all()
+    #    os.mknod(fn)
 
     #create a flag to check this
 
