@@ -1,7 +1,4 @@
-[CLI version](https://github.com/JoshuaSmeda/chippies_ordering_system/tree/master) <br>
-[Web based SPA](https://github.com/JoshuaSmeda/chippies_ordering_system/tree/web_app)
-
-# chippies_ordering_system
+# ChippiesEats
 
 We South Africans love chippies! Take the hard work out of ordering in bulk today!
 
@@ -37,6 +34,11 @@ Step 1.
 
 Init heroku app
 Create build - heroku buildpacks:set heroku/python
+
+
+
+export DATABASE_URL='heroku url'
+heroku pg:psql 
 
 
 

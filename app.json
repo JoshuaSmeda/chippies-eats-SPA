@@ -11,10 +11,6 @@
   "logo": "https://github.com/JoshuaSmeda/chippies-eats-SPA",
   "success_url": "/",
   "env": {
-    "SECRET_TOKEN": {
-      "description": "A secret key for verifying the integrity of signed cookies.",
-      "generator": "secret"
-    },
     "WEB_CONCURRENCY": {
       "description": "The number of processes to run.",
       "value": "3"
@@ -26,14 +22,5 @@
       "size": "standard-1x"
     }
   },
-  "image": "heroku/python",
-  "addons": [
-    "openredis",
-    {
-      "plan": "heroku-postgresql",
-      "options": {
-        "version": "9.5"
-      }
-    }
-  ]
+  "image": "heroku/python"
 }
