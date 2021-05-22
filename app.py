@@ -12,7 +12,9 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
-    """ Re-create and flush database """
+    '''
+    Drops the database tables and starts fresh, can be used to initialize a clean database
+    '''
     fn = 'flush_and_create_db.file'
     if os.path.isfile(fn):
         print("Not flushing and creating databases since '%s' exists. If this is a new instance, ensure this file doesn't exist" % fn)
