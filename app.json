@@ -1,0 +1,26 @@
+{
+  "name": "ChippiesEats",
+  "description": "Take the hard work out of food ordering. Use ChippiesEats today!",
+  "keywords": [
+    "python",
+    "flask",
+    "food-ordering"
+  ],
+  "website": "https://github.com/JoshuaSmeda/chippies-eats-SPA",
+  "repository": "https://github.com/JoshuaSmeda/chippies-eats-SPA",
+  "logo": "https://github.com/JoshuaSmeda/chippies-eats-SPA",
+  "success_url": "/",
+  "env": {
+    "WEB_CONCURRENCY": {
+      "description": "The number of processes to run.",
+      "value": "3"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "standard-1x"
+    }
+  },
+  "image": "heroku/python"
+}
